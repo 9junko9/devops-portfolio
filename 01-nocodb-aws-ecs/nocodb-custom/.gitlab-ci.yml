@@ -1,0 +1,37 @@
+stages:
+  - test_lint
+  - push
+
+# 1. Lint (sur develop uniquement)
+test_quality_code:
+  stage: test_lint
+  image: node:18
+  before_script:
+    - corepack enable
+    - corepack prepare pnpm@latest --activate
+    - export HUSKY=0
+    - pnpm -v
+  script:
+    - cd nocodb/packages/nc-gui
+    - pnpm install
+    - pnpm run lint || true
+    - cd ../nocodb
+    - pnpm install
+    - pnpm run lint || true
+
+# 2. Build & push sur develop → :latest
+push_image_to_ecr_develop:
+  stage: push
+  image: docker:latest
+  services:
+    - docker:dind
+  before_script:
+    - apk add --no-cache python3 py3-pip curl aws-cli
+    - aws --version
+    - >
+      aws ecr get-login-password --region eu-west-3 |
+      docker login --username AWS --password-stdin $(echo $ECR_IMAGE | cut -d'/' -f1)
+  script:
+    - docker build -f Dockerfile -t nocodb_image .
+    - docker tag nocodb_image $ECR_IMAGE:latest
+    - docker push $ECR_IMAGE:latest

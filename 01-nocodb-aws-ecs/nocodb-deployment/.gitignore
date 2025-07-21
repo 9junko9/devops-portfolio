@@ -1,0 +1,14 @@
+# Terraform state
+*.tfstate
+*.tfstate.backup
+.terraform/
+
+# Auto-generated variable files
+terraform.tfvars
+*.tfvars
+
+# Crash logs
+crash.log
+
+# Sensitive plans
+*.plan
