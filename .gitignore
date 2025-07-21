@@ -1,4 +1,2 @@
-# Ignorer les dossiers Terraform
-**/02-terraform-examples/.terraform/
 # Ignorer tous les dossiers .terraform
 **/.terraform/
