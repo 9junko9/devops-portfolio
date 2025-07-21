@@ -15,3 +15,7 @@ Bienvenue sur mon portfolio DevOps. Vous trouverez ici des projets concrets réa
 - `05-monitoring` : Dashboards Prometheus/Grafana
 
 - `06-scripts` : Scripts Bash et Python (automatisation, tests de charge avec Locust, etc.).
+
+## Work In Progress
+
+- `07-devops-platform` : projet en cours d’industrialisation (Kubernetes, Helm, GitOps, backups).
