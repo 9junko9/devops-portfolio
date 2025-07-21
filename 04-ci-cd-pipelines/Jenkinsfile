@@ -1,0 +1,40 @@
+pipeline {
+  agent any
+  environment {
+    APP_REPO = 'https://github.com/9junko9/sample-node-app.git'
+    APP_DIR  = 'sample-node-app'
+  }
+  stages {
+    stage('Checkout') {
+      steps {
+        git url: "$APP_REPO", branch: 'main'
+      }
+    }
+    stage('Build') {
+      steps {
+        sh 'npm ci'
+      }
+    }
+    stage('Test') {
+      steps {
+        sh 'npm test'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        sh '''
+          docker build -t sample-app:latest .
+          docker run -d --name sample-app sample-app:latest
+        '''
+      }
+    }
+  }
+  post {
+    success {
+      echo 'Pipeline réussie !'
+    }
+    failure {
+      echo 'Pipeline échouée !'
+    }
+  }
+}

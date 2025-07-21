@@ -1,0 +1,30 @@
+stages:
+  - build
+  - test
+  - deploy
+
+variables:
+  ECR_REPO: "$CI_REGISTRY_IMAGE/nocodb"
+  TERRAFORM_DIR: "02-terraform-examples"
+
+build:
+  stage: build
+  script:
+    - docker build -t $ECR_REPO:latest .
+    - docker push $ECR_REPO:latest
+
+test:
+  stage: test
+  script:
+    - echo "Lancement des tests unitaires..."
+    - npm ci
+    - npm test
+
+deploy:
+  stage: deploy
+  script:
+    - cd $TERRAFORM_DIR
+    - terraform init
+    - terraform apply -auto-approve -var="ssh_key_name=$SSH_KEY_NAME"
+  only:
+    - main
