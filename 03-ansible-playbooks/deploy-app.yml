@@ -1,0 +1,32 @@
+- name: Déploiement d'une application Node.js
+  hosts: web
+  become: yes
+  vars:
+    app_repo: https://github.com/9junko9/sample-node-app.git
+    app_dir: /opt/sample-node-app
+  tasks:
+    - name: Installer Git et Node.js
+      apt:
+        name: "{{ item }}"
+        state: latest
+      loop:
+        - git
+        - nodejs
+        - npm
+
+    - name: Cloner le dépôt de l’application
+      git:
+        repo: "{{ app_repo }}"
+        dest: "{{ app_dir }}"
+        version: main
+
+    - name: Installer les dépendances
+      npm:
+        path: "{{ app_dir }}"
+        production: yes
+
+    - name: Démarrer l’application avec PM2
+      npm:
+        path: "{{ app_dir }}"
+        executable: pm2
+        args: start index.js --name sample-app

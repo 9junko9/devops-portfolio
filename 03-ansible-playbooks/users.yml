@@ -1,0 +1,23 @@
+- name: Gestion des utilisateurs
+  hosts: web
+  become: yes
+  vars:
+    users:
+      - name: jvernet
+        groups: sudo
+      - name: devops
+        groups: nogroup
+  tasks:
+    - name: Créer les utilisateurs
+      user:
+        name: "{{ item.name }}"
+        groups: "{{ item.groups }}"
+        shell: /bin/bash
+        create_home: yes
+      loop: "{{ users }}"
+
+    - name: Définir un mot de passe chiffré (exemple)
+      user:
+        name: "{{ item.name }}"
+        password: "{{ 'ChangeMe123!' | password_hash('sha512') }}"
+      loop: "{{ users }}"
