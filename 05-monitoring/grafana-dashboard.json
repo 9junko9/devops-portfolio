@@ -1,0 +1,27 @@
+{
+  "annotations": { "list": [] },
+  "panels": [
+    {
+      "type": "graph",
+      "title": "HTTP Requests",
+      "targets": [
+        {
+          "expr": "sum(rate(nginx_http_requests_total[5m]))",
+          "legendFormat": "req/s"
+        }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "CPU Usage",
+      "targets": [
+        {
+          "expr": "rate(node_cpu_seconds_total{mode!='idle'}[5m])",
+          "legendFormat": "cpu"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": 16,
+  "version": 0
+}
