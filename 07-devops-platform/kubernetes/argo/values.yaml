@@ -1,0 +1,11 @@
+server:
+  service:
+    type: LoadBalancer
+
+configs:
+  cm:
+    application.instanceLabelKey: argocd.argoproj.io/instance
+
+  rbac:
+    policy.default: role:readonly
+    scopes: '[groups]'

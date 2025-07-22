@@ -13,3 +13,12 @@ provider "aws" {
   region  = "eu-west-3"
   profile = "default"  
 }
+
+terraform {
+  required_providers {
+    helm = {
+      source  = "hashicorp/helm"
+      version = "~> 2.13.2"
+    }
+  }
+}
