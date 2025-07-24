@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: outline
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/outline/helm.git
+    targetRevision: main
+    path: charts/outline
+    helm:
+      valueFiles:
+        - values.yml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: outline
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
