@@ -1,0 +1,16 @@
+persistence:
+  enabled: true
+  size: 5Gi
+
+postgresql:
+  enabled: true
+  auth:
+    username: forgejo
+    password: forgejopassword
+    database: forgejo
+
+service:
+  type: ClusterIP
+
+ingress:
+  enabled: false
