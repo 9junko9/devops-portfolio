@@ -8,10 +8,10 @@ spec:
   source:
     repoURL: https://codeberg.org/forgejo-contrib/forgejo-charts.git
     targetRevision: main
-    chart: forgejo
+    path: charts/forgejo
     helm:
       valueFiles:
-        - values.yaml
+        - values.yml
   destination:
     server: https://kubernetes.default.svc
     namespace: forgejo
