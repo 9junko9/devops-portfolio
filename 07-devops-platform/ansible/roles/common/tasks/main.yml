@@ -1,0 +1,21 @@
+---
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Install packages
+  apt:
+    name: "{{ packages }}"
+    state: present
+
+- name: Ensure docker service is running
+  service:
+    name: docker
+    state: started
+    enabled: true
+
+- name: Add current user to docker group
+  user:
+    name: "{{ ansible_user }}"
+    groups: docker
+    append: true

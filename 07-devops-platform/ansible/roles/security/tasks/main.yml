@@ -1,0 +1,44 @@
+- name: Configure SSH to disallow root login and use custom port
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^PermitRootLogin"
+    line: "PermitRootLogin no"
+    state: present
+
+- name: Ensure SSH Port is set
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^#?Port"
+    line: "Port {{ ssh_port }}"
+
+- name: Restart sshd
+  service:
+    name: ssh
+    state: restarted
+
+- name: Install UFW firewall
+  apt:
+    name: ufw
+    state: present
+
+- name: Allow needed ports
+  ufw:
+    rule: allow
+    port: "{{ item }}"
+  loop: "{{ firewall_allowed_ports }}"
+
+- name: Enable UFW
+  ufw:
+    state: enabled
+    immediate: yes
+
+- name: Install fail2ban
+  apt:
+    name: fail2ban
+    state: present
+
+- name: Ensure fail2ban is running
+  service:
+    name: fail2ban
+    state: started
+    enabled: true
