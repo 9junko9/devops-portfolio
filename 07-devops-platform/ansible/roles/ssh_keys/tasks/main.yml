@@ -1,3 +1,6 @@
+---
+# ansible/roles/ssh_keys/tasks/main.yml
+
 - name: Ensure .ssh directory exists
   file:
     path: "/home/{{ ssh_user }}/.ssh"
@@ -5,6 +8,7 @@
     owner: "{{ ssh_user }}"
     group: "{{ ssh_user }}"
     mode: '0700'
+  when: not ansible_check_mode
 
 - name: Copy public SSH key to authorized_keys
   copy:
@@ -13,6 +17,7 @@
     owner: "{{ ssh_user }}"
     group: "{{ ssh_user }}"
     mode: '0600'
+  when: not ansible_check_mode
 
 - name: Set correct permissions on authorized_keys
   file:
@@ -20,3 +25,4 @@
     mode: '0600'
     owner: "{{ ssh_user }}"
     group: "{{ ssh_user }}"
+  when: not ansible_check_mode
