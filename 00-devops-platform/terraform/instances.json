@@ -1,0 +1,368 @@
+{
+    "Reservations": [
+        {
+            "ReservationId": "r-029fe401c9ff6bcab",
+            "OwnerId": "440879059541",
+            "RequesterId": "178978769223",
+            "Groups": [],
+            "Instances": [
+                {
+                    "Architecture": "x86_64",
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/xvda",
+                            "Ebs": {
+                                "AttachTime": "2025-07-31T18:57:12+00:00",
+                                "DeleteOnTermination": true,
+                                "Status": "attached",
+                                "VolumeId": "vol-003be46c9a306f999"
+                            }
+                        }
+                    ],
+                    "ClientToken": "fleet-9f8e0bae-fe1f-cb36-a4b0-acaab9a20e80-0",
+                    "EbsOptimized": false,
+                    "EnaSupport": true,
+                    "Hypervisor": "xen",
+                    "IamInstanceProfile": {
+                        "Arn": "arn:aws:iam::440879059541:instance-profile/eks-86cc30eb-eb14-3efe-6ff0-52dba7efbfe6",
+                        "Id": "AIPAWNJTQSJK7LSANCWWC"
+                    },
+                    "NetworkInterfaces": [
+                        {
+                            "Attachment": {
+                                "AttachTime": "2025-07-31T18:57:12+00:00",
+                                "AttachmentId": "eni-attach-0646ce57cde90980c",
+                                "DeleteOnTermination": true,
+                                "DeviceIndex": 0,
+                                "Status": "attached",
+                                "NetworkCardIndex": 0
+                            },
+                            "Description": "",
+                            "Groups": [
+                                {
+                                    "GroupId": "sg-078d79d6b110d4cb0",
+                                    "GroupName": "eks-cluster-sg-devops-cluster-1624202922"
+                                }
+                            ],
+                            "Ipv6Addresses": [],
+                            "MacAddress": "06:0b:a1:7d:a7:a3",
+                            "NetworkInterfaceId": "eni-06998ad01eb75bba9",
+                            "OwnerId": "440879059541",
+                            "PrivateDnsName": "ip-10-0-3-252.eu-west-3.compute.internal",
+                            "PrivateIpAddress": "10.0.3.252",
+                            "PrivateIpAddresses": [
+                                {
+                                    "Primary": true,
+                                    "PrivateDnsName": "ip-10-0-3-252.eu-west-3.compute.internal",
+                                    "PrivateIpAddress": "10.0.3.252"
+                                }
+                            ],
+                            "SourceDestCheck": true,
+                            "Status": "in-use",
+                            "SubnetId": "subnet-0cadc0682fe19d9e1",
+                            "VpcId": "vpc-093345312ff1098c8",
+                            "InterfaceType": "interface",
+                            "Operator": {
+                                "Managed": false
+                            }
+                        }
+                    ],
+                    "RootDeviceName": "/dev/xvda",
+                    "RootDeviceType": "ebs",
+                    "SecurityGroups": [
+                        {
+                            "GroupId": "sg-078d79d6b110d4cb0",
+                            "GroupName": "eks-cluster-sg-devops-cluster-1624202922"
+                        }
+                    ],
+                    "SourceDestCheck": true,
+                    "Tags": [
+                        {
+                            "Key": "aws:ec2launchtemplate:version",
+                            "Value": "1"
+                        },
+                        {
+                            "Key": "k8s.io/cluster-autoscaler/devops-cluster",
+                            "Value": "owned"
+                        },
+                        {
+                            "Key": "kubernetes.io/cluster/devops-cluster",
+                            "Value": "owned"
+                        },
+                        {
+                            "Key": "aws:ec2:fleet-id",
+                            "Value": "fleet-9f8e0bae-fe1f-cb36-a4b0-acaab9a20e80"
+                        },
+                        {
+                            "Key": "eks:cluster-name",
+                            "Value": "devops-cluster"
+                        },
+                        {
+                            "Key": "aws:autoscaling:groupName",
+                            "Value": "eks-devops-platform-node-group-86cc30eb-eb14-3efe-6ff0-52dba7efbfe6"
+                        },
+                        {
+                            "Key": "eks:nodegroup-name",
+                            "Value": "devops-platform-node-group"
+                        },
+                        {
+                            "Key": "k8s.io/cluster-autoscaler/enabled",
+                            "Value": "true"
+                        },
+                        {
+                            "Key": "aws:ec2launchtemplate:id",
+                            "Value": "lt-07f119f1d80f3a3b1"
+                        }
+                    ],
+                    "VirtualizationType": "hvm",
+                    "CpuOptions": {
+                        "CoreCount": 1,
+                        "ThreadsPerCore": 2
+                    },
+                    "CapacityReservationSpecification": {
+                        "CapacityReservationPreference": "open"
+                    },
+                    "HibernationOptions": {
+                        "Configured": false
+                    },
+                    "MetadataOptions": {
+                        "State": "applied",
+                        "HttpTokens": "required",
+                        "HttpPutResponseHopLimit": 1,
+                        "HttpEndpoint": "enabled",
+                        "HttpProtocolIpv6": "disabled",
+                        "InstanceMetadataTags": "disabled"
+                    },
+                    "EnclaveOptions": {
+                        "Enabled": false
+                    },
+                    "BootMode": "uefi-preferred",
+                    "PlatformDetails": "Linux/UNIX",
+                    "UsageOperation": "RunInstances",
+                    "UsageOperationUpdateTime": "2025-07-31T18:57:12+00:00",
+                    "PrivateDnsNameOptions": {
+                        "HostnameType": "ip-name",
+                        "EnableResourceNameDnsARecord": false,
+                        "EnableResourceNameDnsAAAARecord": false
+                    },
+                    "MaintenanceOptions": {
+                        "AutoRecovery": "default"
+                    },
+                    "CurrentInstanceBootMode": "uefi",
+                    "NetworkPerformanceOptions": {
+                        "BandwidthWeighting": "default"
+                    },
+                    "Operator": {
+                        "Managed": false
+                    },
+                    "InstanceId": "i-08196483ba40af93d",
+                    "ImageId": "ami-07743e0be93040826",
+                    "State": {
+                        "Code": 16,
+                        "Name": "running"
+                    },
+                    "PrivateDnsName": "ip-10-0-3-252.eu-west-3.compute.internal",
+                    "PublicDnsName": "",
+                    "StateTransitionReason": "",
+                    "AmiLaunchIndex": 0,
+                    "ProductCodes": [],
+                    "InstanceType": "t3.medium",
+                    "LaunchTime": "2025-07-31T18:57:12+00:00",
+                    "Placement": {
+                        "GroupName": "",
+                        "Tenancy": "default",
+                        "AvailabilityZone": "eu-west-3a"
+                    },
+                    "Monitoring": {
+                        "State": "disabled"
+                    },
+                    "SubnetId": "subnet-0cadc0682fe19d9e1",
+                    "VpcId": "vpc-093345312ff1098c8",
+                    "PrivateIpAddress": "10.0.3.252"
+                }
+            ]
+        },
+        {
+            "ReservationId": "r-03fb668f29de684aa",
+            "OwnerId": "440879059541",
+            "RequesterId": "178978769223",
+            "Groups": [],
+            "Instances": [
+                {
+                    "Architecture": "x86_64",
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/xvda",
+                            "Ebs": {
+                                "AttachTime": "2025-07-31T18:57:13+00:00",
+                                "DeleteOnTermination": true,
+                                "Status": "attached",
+                                "VolumeId": "vol-06c775f9c3b1e3331"
+                            }
+                        }
+                    ],
+                    "ClientToken": "fleet-9dae2b26-d69f-6b94-a41a-24a8d6c0aeea-0",
+                    "EbsOptimized": false,
+                    "EnaSupport": true,
+                    "Hypervisor": "xen",
+                    "IamInstanceProfile": {
+                        "Arn": "arn:aws:iam::440879059541:instance-profile/eks-86cc30eb-eb14-3efe-6ff0-52dba7efbfe6",
+                        "Id": "AIPAWNJTQSJK7LSANCWWC"
+                    },
+                    "NetworkInterfaces": [
+                        {
+                            "Attachment": {
+                                "AttachTime": "2025-07-31T18:57:12+00:00",
+                                "AttachmentId": "eni-attach-0e3de6ca0ebaf9eba",
+                                "DeleteOnTermination": true,
+                                "DeviceIndex": 0,
+                                "Status": "attached",
+                                "NetworkCardIndex": 0
+                            },
+                            "Description": "",
+                            "Groups": [
+                                {
+                                    "GroupId": "sg-078d79d6b110d4cb0",
+                                    "GroupName": "eks-cluster-sg-devops-cluster-1624202922"
+                                }
+                            ],
+                            "Ipv6Addresses": [],
+                            "MacAddress": "0a:b0:06:5d:4a:3d",
+                            "NetworkInterfaceId": "eni-024193c6dffa7d397",
+                            "OwnerId": "440879059541",
+                            "PrivateDnsName": "ip-10-0-4-251.eu-west-3.compute.internal",
+                            "PrivateIpAddress": "10.0.4.251",
+                            "PrivateIpAddresses": [
+                                {
+                                    "Primary": true,
+                                    "PrivateDnsName": "ip-10-0-4-251.eu-west-3.compute.internal",
+                                    "PrivateIpAddress": "10.0.4.251"
+                                }
+                            ],
+                            "SourceDestCheck": true,
+                            "Status": "in-use",
+                            "SubnetId": "subnet-096a41522d3c80923",
+                            "VpcId": "vpc-093345312ff1098c8",
+                            "InterfaceType": "interface",
+                            "Operator": {
+                                "Managed": false
+                            }
+                        }
+                    ],
+                    "RootDeviceName": "/dev/xvda",
+                    "RootDeviceType": "ebs",
+                    "SecurityGroups": [
+                        {
+                            "GroupId": "sg-078d79d6b110d4cb0",
+                            "GroupName": "eks-cluster-sg-devops-cluster-1624202922"
+                        }
+                    ],
+                    "SourceDestCheck": true,
+                    "Tags": [
+                        {
+                            "Key": "aws:autoscaling:groupName",
+                            "Value": "eks-devops-platform-node-group-86cc30eb-eb14-3efe-6ff0-52dba7efbfe6"
+                        },
+                        {
+                            "Key": "aws:ec2launchtemplate:version",
+                            "Value": "1"
+                        },
+                        {
+                            "Key": "eks:nodegroup-name",
+                            "Value": "devops-platform-node-group"
+                        },
+                        {
+                            "Key": "k8s.io/cluster-autoscaler/devops-cluster",
+                            "Value": "owned"
+                        },
+                        {
+                            "Key": "k8s.io/cluster-autoscaler/enabled",
+                            "Value": "true"
+                        },
+                        {
+                            "Key": "aws:ec2launchtemplate:id",
+                            "Value": "lt-07f119f1d80f3a3b1"
+                        },
+                        {
+                            "Key": "aws:ec2:fleet-id",
+                            "Value": "fleet-9dae2b26-d69f-6b94-a41a-24a8d6c0aeea"
+                        },
+                        {
+                            "Key": "eks:cluster-name",
+                            "Value": "devops-cluster"
+                        },
+                        {
+                            "Key": "kubernetes.io/cluster/devops-cluster",
+                            "Value": "owned"
+                        }
+                    ],
+                    "VirtualizationType": "hvm",
+                    "CpuOptions": {
+                        "CoreCount": 1,
+                        "ThreadsPerCore": 2
+                    },
+                    "CapacityReservationSpecification": {
+                        "CapacityReservationPreference": "open"
+                    },
+                    "HibernationOptions": {
+                        "Configured": false
+                    },
+                    "MetadataOptions": {
+                        "State": "applied",
+                        "HttpTokens": "required",
+                        "HttpPutResponseHopLimit": 1,
+                        "HttpEndpoint": "enabled",
+                        "HttpProtocolIpv6": "disabled",
+                        "InstanceMetadataTags": "disabled"
+                    },
+                    "EnclaveOptions": {
+                        "Enabled": false
+                    },
+                    "BootMode": "uefi-preferred",
+                    "PlatformDetails": "Linux/UNIX",
+                    "UsageOperation": "RunInstances",
+                    "UsageOperationUpdateTime": "2025-07-31T18:57:12+00:00",
+                    "PrivateDnsNameOptions": {
+                        "HostnameType": "ip-name",
+                        "EnableResourceNameDnsARecord": false,
+                        "EnableResourceNameDnsAAAARecord": false
+                    },
+                    "MaintenanceOptions": {
+                        "AutoRecovery": "default"
+                    },
+                    "CurrentInstanceBootMode": "uefi",
+                    "NetworkPerformanceOptions": {
+                        "BandwidthWeighting": "default"
+                    },
+                    "Operator": {
+                        "Managed": false
+                    },
+                    "InstanceId": "i-0e2a813dc9043e068",
+                    "ImageId": "ami-07743e0be93040826",
+                    "State": {
+                        "Code": 16,
+                        "Name": "running"
+                    },
+                    "PrivateDnsName": "ip-10-0-4-251.eu-west-3.compute.internal",
+                    "PublicDnsName": "",
+                    "StateTransitionReason": "",
+                    "AmiLaunchIndex": 0,
+                    "ProductCodes": [],
+                    "InstanceType": "t3.medium",
+                    "LaunchTime": "2025-07-31T18:57:12+00:00",
+                    "Placement": {
+                        "GroupName": "",
+                        "Tenancy": "default",
+                        "AvailabilityZone": "eu-west-3b"
+                    },
+                    "Monitoring": {
+                        "State": "disabled"
+                    },
+                    "SubnetId": "subnet-096a41522d3c80923",
+                    "VpcId": "vpc-093345312ff1098c8",
+                    "PrivateIpAddress": "10.0.4.251"
+                }
+            ]
+        }
+    ]
+}

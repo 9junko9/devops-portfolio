@@ -1,0 +1,96 @@
+{
+    "RouteTables": [
+        {
+            "Associations": [
+                {
+                    "Main": false,
+                    "RouteTableAssociationId": "rtbassoc-03d8c29fe1294428f",
+                    "RouteTableId": "rtb-040abdcbf6b92b079",
+                    "SubnetId": "subnet-096a41522d3c80923",
+                    "AssociationState": {
+                        "State": "associated"
+                    }
+                },
+                {
+                    "Main": false,
+                    "RouteTableAssociationId": "rtbassoc-06d85f8d3e9da950b",
+                    "RouteTableId": "rtb-040abdcbf6b92b079",
+                    "SubnetId": "subnet-0cadc0682fe19d9e1",
+                    "AssociationState": {
+                        "State": "associated"
+                    }
+                }
+            ],
+            "PropagatingVgws": [],
+            "RouteTableId": "rtb-040abdcbf6b92b079",
+            "Routes": [
+                {
+                    "DestinationCidrBlock": "10.0.0.0/16",
+                    "GatewayId": "local",
+                    "Origin": "CreateRouteTable",
+                    "State": "active"
+                },
+                {
+                    "DestinationCidrBlock": "0.0.0.0/0",
+                    "NatGatewayId": "nat-022933781a1cfe7ec",
+                    "Origin": "CreateRoute",
+                    "State": "active"
+                }
+            ],
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "devops-platform-private-rt"
+                }
+            ],
+            "VpcId": "vpc-093345312ff1098c8",
+            "OwnerId": "440879059541"
+        },
+        {
+            "Associations": [
+                {
+                    "Main": false,
+                    "RouteTableAssociationId": "rtbassoc-0d13c98eaa98e907e",
+                    "RouteTableId": "rtb-06530f0a15308a7ef",
+                    "SubnetId": "subnet-0567240a95f706ba3",
+                    "AssociationState": {
+                        "State": "associated"
+                    }
+                },
+                {
+                    "Main": false,
+                    "RouteTableAssociationId": "rtbassoc-0f11ffe60c2156a33",
+                    "RouteTableId": "rtb-06530f0a15308a7ef",
+                    "SubnetId": "subnet-0e8fc1166397913e6",
+                    "AssociationState": {
+                        "State": "associated"
+                    }
+                }
+            ],
+            "PropagatingVgws": [],
+            "RouteTableId": "rtb-06530f0a15308a7ef",
+            "Routes": [
+                {
+                    "DestinationCidrBlock": "10.0.0.0/16",
+                    "GatewayId": "local",
+                    "Origin": "CreateRouteTable",
+                    "State": "active"
+                },
+                {
+                    "DestinationCidrBlock": "0.0.0.0/0",
+                    "GatewayId": "igw-040363ae7e693a3ab",
+                    "Origin": "CreateRoute",
+                    "State": "active"
+                }
+            ],
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "devops-platform-public-rt"
+                }
+            ],
+            "VpcId": "vpc-093345312ff1098c8",
+            "OwnerId": "440879059541"
+        }
+    ]
+}

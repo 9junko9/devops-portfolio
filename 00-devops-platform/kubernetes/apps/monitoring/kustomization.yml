@@ -1,0 +1,3 @@
+resources:
+  - helm-release.yml
+  - helm-release-prometheus.yml

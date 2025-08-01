@@ -1,0 +1,20 @@
+replicaCount: 1
+
+postgresql:
+  enabled: true
+  auth:
+    username: outline
+    password: outlinepass
+    database: outline
+
+minio:
+  enabled: true
+  defaultBuckets: "uploads"
+  accessKey: minio
+  secretKey: minio123
+
+config:
+  URL: http://localhost:3000
+  PORT: 3000
+  SECRET_KEY: changeme1234567890
+  UTILS_SECRET: changemeutils

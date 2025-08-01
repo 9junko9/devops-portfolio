@@ -1,0 +1,53 @@
+{
+    "nodegroup": {
+        "nodegroupName": "devops-platform-node-group",
+        "nodegroupArn": "arn:aws:eks:eu-west-3:440879059541:nodegroup/devops-cluster/devops-platform-node-group/66cc3102-b623-23e2-8b58-5db964b17f1d",
+        "clusterName": "devops-cluster",
+        "version": "1.33",
+        "releaseVersion": "1.33.0-20250715",
+        "createdAt": "2025-07-31T21:46:20.869000+02:00",
+        "modifiedAt": "2025-07-31T22:19:34.406000+02:00",
+        "status": "CREATE_FAILED",
+        "capacityType": "ON_DEMAND",
+        "scalingConfig": {
+            "minSize": 1,
+            "maxSize": 3,
+            "desiredSize": 2
+        },
+        "instanceTypes": [
+            "t3.medium"
+        ],
+        "subnets": [
+            "subnet-096a41522d3c80923",
+            "subnet-0cadc0682fe19d9e1"
+        ],
+        "amiType": "AL2023_x86_64_STANDARD",
+        "nodeRole": "arn:aws:iam::440879059541:role/devops-platform-eks-node-role",
+        "resources": {
+            "autoScalingGroups": [
+                {
+                    "name": "eks-devops-platform-node-group-66cc3102-b623-23e2-8b58-5db964b17f1d"
+                }
+            ]
+        },
+        "diskSize": 20,
+        "health": {
+            "issues": [
+                {
+                    "code": "NodeCreationFailure",
+                    "message": "Instances failed to join the kubernetes cluster",
+                    "resourceIds": [
+                        "i-0371f491201acc954",
+                        "i-0eba8ae78f4befd90"
+                    ]
+                }
+            ]
+        },
+        "updateConfig": {
+            "maxUnavailable": 1
+        },
+        "tags": {
+            "Name": "devops-platform-node-group"
+        }
+    }
+}

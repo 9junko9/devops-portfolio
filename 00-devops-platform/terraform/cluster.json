@@ -1,0 +1,20 @@
+{
+    "Status": "ACTIVE",
+    "ResourcesVpcConfig": {
+        "subnetIds": [
+            "subnet-096a41522d3c80923",
+            "subnet-0e8fc1166397913e6",
+            "subnet-0cadc0682fe19d9e1",
+            "subnet-0567240a95f706ba3"
+        ],
+        "securityGroupIds": [],
+        "clusterSecurityGroupId": "sg-078d79d6b110d4cb0",
+        "vpcId": "vpc-093345312ff1098c8",
+        "endpointPublicAccess": true,
+        "endpointPrivateAccess": false,
+        "publicAccessCidrs": [
+            "0.0.0.0/0"
+        ]
+    },
+    "Endpoint": "https://B9D257F5DAD8E0EA90A04BFFA48AE0AC.gr7.eu-west-3.eks.amazonaws.com"
+}
