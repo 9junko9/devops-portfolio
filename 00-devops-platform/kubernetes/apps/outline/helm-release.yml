@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/outline/helm.git
+    repoURL: https://github.com/9junko9/devops-portfolio.git
     targetRevision: main
-    path: charts/outline
+    path:  00-devops-platform/kubernetes/apps/outline
     helm:
       valueFiles:
         - values.yml
