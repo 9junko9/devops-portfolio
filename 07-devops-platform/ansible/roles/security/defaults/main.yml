@@ -1,3 +1,0 @@
-ssh_port: 22
-firewall_allowed_ports:
-  - 22
