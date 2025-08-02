@@ -1,8 +1,9 @@
 image:
-  repository: quay.io/outline/outline-server    
+  repository: quay.io/9junko9/outline-server  
   tag: latest
   pullPolicy: IfNotPresent
   pullSecret: quay-secret  
+
 service:
   type: ClusterIP
   port: 3000
@@ -10,9 +11,9 @@ service:
 replicaCount: 1
 
 env:
-  DATABASE_URL: "postgres://outline:outlinepassword@postgres:5432/outline"
-  REDIS_URL: "redis://redis:6379"
-  SECRET_KEY: "change-me-to-a-32-char-random-string"
+  DATABASE_URL: "postgres://outline:outlinepassword@outline-postgres-postgresql:5432/outline"
+  REDIS_URL: "redis://outline-redis-master:6379"
+  SECRET_KEY: "une-vraie-cle-secrete-de-32-caracteres"  
   APP_URL: "http://localhost:3000"
 
 resources: {}
