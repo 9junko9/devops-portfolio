@@ -15,5 +15,6 @@ env:
   REDIS_URL: "redis://outline-redis-master:6379"
   SECRET_KEY: "90db5455b6a3d3407863a96a3887fee4"  
   APP_URL: "http://localhost:3000"
+  YARN_IGNORE_ENGINES: "1"
 
 resources: {}
