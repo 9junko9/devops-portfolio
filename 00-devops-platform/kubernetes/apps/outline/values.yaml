@@ -1,11 +1,12 @@
 image:
-  repository: quay.io/outline/outline-server
-  tag: latest
-  pullPolicy: IfNotPresent
+  repository: nginx
+  tag: stable
+  pullPolicy: Always
 
 service:
   type: ClusterIP
   port: 3000
 
 replicaCount: 1
+
 resources: {}
