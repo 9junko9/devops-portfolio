@@ -13,7 +13,7 @@ replicaCount: 1
 env:
   DATABASE_URL: "postgres://outline:outlinepassword@outline-postgres-postgresql:5432/outline"
   REDIS_URL: "redis://outline-redis-master:6379"
-  SECRET_KEY: "une-vraie-cle-secrete-de-32-caracteres"  
+  SECRET_KEY: "90db5455b6a3d3407863a96a3887fee4"  
   APP_URL: "http://localhost:3000"
 
 resources: {}
