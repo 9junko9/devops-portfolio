@@ -28,14 +28,15 @@ spec:
           ports:
             - containerPort: {{ .Values.service.port }}
           env:
+            {{- $env := .Values.env | default dict }}
             - name: DATABASE_URL
-              value: {{ default "postgres://outline:outlinepassword@postgres:5432/outline" .Values.env.DATABASE_URL | quote }}
+              value: {{ default "postgres://outline:outlinepassword@postgres:5432/outline" $env.DATABASE_URL | quote }}
             - name: REDIS_URL
-              value: {{ default "redis://redis:6379" .Values.env.REDIS_URL | quote }}
+              value: {{ default "redis://redis:6379" $env.REDIS_URL | quote }}
             - name: SECRET_KEY
-              value: {{ default (randAlphaNum 32) .Values.env.SECRET_KEY | quote }}
+              value: {{ default "change-me-to-a-32-char-random-string" $env.SECRET_KEY | quote }}
             - name: APP_URL
-              value: {{ .Values.env.APP_URL | quote }}
+              value: {{ default "http://localhost:3000" $env.APP_URL | quote }}
           readinessProbe:
             httpGet:
               path: /
