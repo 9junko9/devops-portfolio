@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/<ton-user>/devops-platform.git
+    repoURL: https://github.com/9junko9/devops-portfolio.git
     targetRevision: main
-    path: kubernetes/apps
+    path: 00-devops-platform/kubernetes/apps
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
