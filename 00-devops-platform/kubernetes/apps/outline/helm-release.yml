@@ -11,7 +11,7 @@ spec:
     path:  00-devops-platform/kubernetes/apps/outline
     helm:
       valueFiles:
-        - values.yml
+        - values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: outline
