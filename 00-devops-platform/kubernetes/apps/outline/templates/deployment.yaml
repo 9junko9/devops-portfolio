@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/name: {{ include "outline.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "outline.name" . }}
@@ -17,9 +17,28 @@ spec:
         app.kubernetes.io/name: {{ include "outline.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
+      {{- if .Values.image.pullSecret }}
+      imagePullSecrets:
+        - name: {{ .Values.image.pullSecret }}
+      {{- end }}
       containers:
         - name: outline
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.port }}
+          env:
+            - name: DATABASE_URL
+              value: {{ default "postgres://outline:outlinepassword@postgres:5432/outline" .Values.env.DATABASE_URL | quote }}
+            - name: REDIS_URL
+              value: {{ default "redis://redis:6379" .Values.env.REDIS_URL | quote }}
+            - name: SECRET_KEY
+              value: {{ default (randAlphaNum 32) .Values.env.SECRET_KEY | quote }}
+            - name: APP_URL
+              value: {{ .Values.env.APP_URL | quote }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.service.port }}
+            initialDelaySeconds: 5
+            periodSeconds: 10
