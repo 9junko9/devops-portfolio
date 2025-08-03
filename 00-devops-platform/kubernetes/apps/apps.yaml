@@ -1,20 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: outline
+  name: apps
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/9junko9/devops-portfolio.git
     targetRevision: main
-    path: 00-devops-platform/kubernetes/apps/outline
-    helm:
-      valueFiles:
-        - values.yaml
+    path: 00-devops-platform/kubernetes/apps
   destination:
     server: https://kubernetes.default.svc
-    namespace: outline
+    namespace: argocd
   syncPolicy:
     automated:
       selfHeal: true

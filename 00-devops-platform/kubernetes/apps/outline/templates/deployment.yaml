@@ -27,11 +27,18 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.port }}
+          # startup + readiness probes
+          startupProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.service.port }}
+            periodSeconds: 10
+            failureThreshold: 30
           readinessProbe:
             httpGet:
               path: /
               port: {{ .Values.service.port }}
-            initialDelaySeconds: 5
+            initialDelaySeconds: 30
             periodSeconds: 10
           env:
             {{- with .Values.env }}
@@ -40,9 +47,24 @@ spec:
               value: {{ printf "%s" $value | quote }}
             {{- end }}
             {{- end }}
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secrets
+                  key: SECRET_KEY
+            - name: UTILS_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secrets
+                  key: UTILS_SECRET
           volumeMounts:
             - name: outline-data
               mountPath: /var/lib/outline/data
       volumes:
         - name: outline-data
+          {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ include "outline.fullname" . }}-data
+          {{- else }}
           emptyDir: {}
+          {{- end }}

@@ -1,3 +1,4 @@
+# values.yaml
 image:
   repository: quay.io/9junko9/outline-server
   tag: node20-latest
@@ -15,13 +16,18 @@ env:
   DATABASE_URL: "postgres://outline:outlinepassword@outline-postgres-postgresql:5432/outline"
   REDIS_URL: "redis://:yrN7DeIOv4@outline-redis-master:6379"
   REDIS_COLLABORATION_URL: "redis://:yrN7DeIOv4@outline-redis-master:6379"
-  SECRET_KEY: "3104a7ff519910e5afcc9669851969ff18fa209c8a07440a2325b7a465d97a6e"
-  UTILS_SECRET: "fbcb76f77304bf24973eb4faba721ed344fd44c1815ed36a418e57e17a35ba79"
-  URL: "http://localhost:3000"
-  COLLABORATION_URL: "http://localhost:3000"
-  APP_URL: "http://localhost:3000"
+  URL: "https://outline.example.com"              
+  COLLABORATION_URL: "https://outline.example.com" 
+  APP_URL: "https://outline.example.com"
   FILE_STORAGE: "local"
   FILE_STORAGE_LOCAL_ROOT_DIR: "/var/lib/outline/data"
   PGSSLMODE: "disable"
+  HOST: "0.0.0.0" 
+
+persistence:
+  enabled: true
+  size: 5Gi
+  accessMode: ReadWriteOnce
+  storageClass: standard  
 
 resources: {}
