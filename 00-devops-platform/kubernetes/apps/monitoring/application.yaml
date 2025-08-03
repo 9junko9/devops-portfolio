@@ -9,10 +9,6 @@ spec:
     repoURL: https://github.com/9junko9/devops-portfolio.git
     targetRevision: main
     path: 00-devops-platform/kubernetes/apps/monitoring
-    directory:
-      recurse: true
-    kustomize:
-      enableHelm: true
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
