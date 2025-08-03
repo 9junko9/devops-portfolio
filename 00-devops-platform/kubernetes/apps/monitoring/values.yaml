@@ -1,4 +1,7 @@
 kube-prometheus-stack:
+  admissionWebhooks:
+    enabled: false
+
   prometheus:
     prometheusSpec:
       serviceMonitorSelectorNilUsesHelmValues: false
@@ -8,14 +11,19 @@ kube-prometheus-stack:
           role: alert-rules
       serviceMonitorSelector: {}
       retention: 10d
+
   alertmanager:
     enabled: true
+
   grafana:
     enabled: false
+
   kubeStateMetrics:
     enabled: true
+
   nodeExporter:
     enabled: true
+
   prometheusRule:
     enabled: true
     additionalPrometheusRulesMap:
@@ -30,6 +38,7 @@ kube-prometheus-stack:
                   severity: warning
                 annotations:
                   summary: "Pod restarting frequently"
+
               - alert: HighCPUUsage
                 expr: sum(rate(container_cpu_usage_seconds_total{image!=""}[2m])) by (namespace) > 0.8
                 for: 2m
@@ -37,6 +46,7 @@ kube-prometheus-stack:
                   severity: warning
                 annotations:
                   summary: "High CPU usage in namespace {{ $labels.namespace }}"
+
               - alert: HighMemoryUsage
                 expr: sum(container_memory_usage_bytes{image!=""}) by (namespace) / sum(kube_namespace_annotations) # placeholder
                 for: 2m
@@ -49,10 +59,13 @@ grafana:
   admin:
     existingSecret: ""
     password: "admin"
+
   service:
     type: ClusterIP
+
   ingress:
     enabled: false
+
   datasources:
     datasources.yaml:
       apiVersion: 1
@@ -67,13 +80,14 @@ loki:
   loki:
     useTestSchema: true
 
-
 promtail:
   config:
     clients:
       - url: http://loki:3100/loki/api/v1/push
+
     positions:
       filename: /tmp/positions.yaml
+
     scrape_configs:
       - job_name: kubernetes-pods
         kubernetes_sd_configs:
