@@ -13,8 +13,8 @@ replicaCount: 1
 env:
   NODE_ENV: "production"
   DATABASE_URL: "postgres://outline:outlinepassword@outline-postgres-postgresql:5432/outline"
-  REDIS_URL: "redis://outline-redis-master:6379"
-  REDIS_COLLABORATION_URL: "redis://outline-redis-master:6379"
+  REDIS_URL: "redis://:yrN7DeIOv4@outline-redis-master:6379"
+  REDIS_COLLABORATION_URL: "redis://:yrN7DeIOv4@outline-redis-master:6379"
   SECRET_KEY: "90db5455b6a3d3407863a96a3887fee4"
   UTILS_SECRET: "90db5455b6a3d3407863a96a3887fee4"
   URL: "http://localhost:3000"
@@ -23,6 +23,7 @@ env:
   FILE_STORAGE: "local"
   FILE_STORAGE_LOCAL_ROOT_DIR: "/var/lib/outline/data"
   PGSSLMODE: "disable"
+
 
 
 resources: {}
