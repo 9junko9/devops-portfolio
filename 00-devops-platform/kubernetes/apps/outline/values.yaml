@@ -1,6 +1,6 @@
 image:
   repository: quay.io/9junko9/outline-server  
-  tag: latest
+  tag: node20-latest
   pullPolicy: IfNotPresent
   pullSecret: quay-secret  
 
