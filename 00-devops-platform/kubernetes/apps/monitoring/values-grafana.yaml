@@ -1,0 +1,19 @@
+admin:
+  existingSecret: ""  
+  password: "admin"    
+
+service:
+  type: ClusterIP
+
+ingress:
+  enabled: false
+
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
+        access: proxy
+        isDefault: true
