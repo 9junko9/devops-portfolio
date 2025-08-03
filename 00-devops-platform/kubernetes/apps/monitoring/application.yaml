@@ -10,11 +10,9 @@ spec:
     targetRevision: main
     path: 00-devops-platform/kubernetes/apps/monitoring
     helm:
-      valueFiles:
-        - values-prometheus.yaml
-        - values-grafana.yaml
-        - values-loki.yaml
-        - values-promtail.yaml
+      parameters:
+        - name: loki.useTestSchema
+          value: "true"
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring

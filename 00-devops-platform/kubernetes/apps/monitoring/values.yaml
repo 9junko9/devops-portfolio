@@ -1,0 +1,89 @@
+kube-prometheus-stack:
+  prometheus:
+    prometheusSpec:
+      serviceMonitorSelectorNilUsesHelmValues: false
+      evaluationInterval: "30s"
+      ruleSelector:
+        matchLabels:
+          role: alert-rules
+      serviceMonitorSelector: {}
+      retention: 10d
+  alertmanager:
+    enabled: true
+  grafana:
+    enabled: false
+  kubeStateMetrics:
+    enabled: true
+  nodeExporter:
+    enabled: true
+  prometheusRule:
+    enabled: true
+    additionalPrometheusRulesMap:
+      basic-alerts: |
+        groups:
+          - name: basic.rules
+            rules:
+              - alert: KubernetesPodCrashLooping
+                expr: increase(kube_pod_container_status_restarts_total[5m]) > 0
+                for: 5m
+                labels:
+                  severity: warning
+                annotations:
+                  summary: "Pod restarting frequently"
+              - alert: HighCPUUsage
+                expr: sum(rate(container_cpu_usage_seconds_total{image!=""}[2m])) by (namespace) > 0.8
+                for: 2m
+                labels:
+                  severity: warning
+                annotations:
+                  summary: "High CPU usage in namespace {{ $labels.namespace }}"
+              - alert: HighMemoryUsage
+                expr: sum(container_memory_usage_bytes{image!=""}) by (namespace) / sum(kube_namespace_annotations) # placeholder
+                for: 2m
+                labels:
+                  severity: warning
+                annotations:
+                  summary: "High memory usage in namespace {{ $labels.namespace }}"
+
+grafana:
+  admin:
+    existingSecret: ""
+    password: "admin"
+  service:
+    type: ClusterIP
+  ingress:
+    enabled: false
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: Prometheus
+          type: prometheus
+          url: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
+          access: proxy
+          isDefault: true
+
+loki:
+  loki:
+    useTestSchema: true
+
+
+promtail:
+  config:
+    clients:
+      - url: http://loki:3100/loki/api/v1/push
+    positions:
+      filename: /tmp/positions.yaml
+    scrape_configs:
+      - job_name: kubernetes-pods
+        kubernetes_sd_configs:
+          - role: pod
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_label_app]
+            target_label: app
+          - action: labelmap
+            regex: __meta_kubernetes_pod_label_(.+)
+          - source_labels: [__meta_kubernetes_namespace]
+            target_label: namespace
+          - source_labels: [__meta_kubernetes_pod_name]
+            target_label: pod
