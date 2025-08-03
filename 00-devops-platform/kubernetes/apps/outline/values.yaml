@@ -1,8 +1,8 @@
 image:
-  repository: quay.io/9junko9/outline-server  
+  repository: quay.io/9junko9/outline-server
   tag: node20-latest
   pullPolicy: IfNotPresent
-  pullSecret: quay-secret  
+  pullSecret: quay-secret
 
 service:
   type: ClusterIP
@@ -23,7 +23,5 @@ env:
   FILE_STORAGE: "local"
   FILE_STORAGE_LOCAL_ROOT_DIR: "/var/lib/outline/data"
   PGSSLMODE: "disable"
-
-
 
 resources: {}

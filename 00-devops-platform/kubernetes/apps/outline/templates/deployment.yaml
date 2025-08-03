@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/name: {{ include "outline.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.replicaCount | default 1 }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "outline.name" . }}
@@ -27,34 +27,19 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.port }}
-          env:
-            {{- $env := .Values.env | default dict }}
-            - name: NODE_ENV
-              value: {{ default "production" $env.NODE_ENV | quote }}
-            - name: DATABASE_URL
-              value: {{ default "postgres://outline:outlinepassword@outline-postgres-postgresql:5432/outline" $env.DATABASE_URL | quote }}
-            - name: REDIS_URL
-              value: {{ default "redis://outline-redis-master:6379" $env.REDIS_URL | quote }}
-            - name: SECRET_KEY
-              value: {{ default "change-me-to-a-32-char-random-string" $env.SECRET_KEY | quote }}
-            - name: UTILS_SECRET
-              value: {{ default (default "change-me-to-a-32-char-random-string" $env.SECRET_KEY) $env.UTILS_SECRET | quote }}
-            - name: URL
-              value: {{ default "http://localhost:3000" $env.URL | quote }}
-            - name: COLLABORATION_URL
-              value: {{ default "http://localhost:3000" $env.COLLABORATION_URL | quote }}
-            - name: APP_URL
-              value: {{ default "http://localhost:3000" $env.APP_URL | quote }}
-            - name: FILE_STORAGE
-              value: {{ default "local" $env.FILE_STORAGE | quote }}
-            - name: FILE_STORAGE_LOCAL_ROOT_DIR
-              value: {{ default "/var/lib/outline/data" $env.FILE_STORAGE_LOCAL_ROOT_DIR | quote }}
           readinessProbe:
             httpGet:
               path: /
               port: {{ .Values.service.port }}
             initialDelaySeconds: 5
             periodSeconds: 10
+          env:
+            {{- with .Values.env }}
+            {{- range $name, $value := . }}
+            - name: {{ $name }}
+              value: {{ printf "%s" $value | quote }}
+            {{- end }}
+            {{- end }}
           volumeMounts:
             - name: outline-data
               mountPath: /var/lib/outline/data
