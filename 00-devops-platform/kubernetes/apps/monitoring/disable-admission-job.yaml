@@ -1,0 +1,6 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: monitoring-kube-prometheus-admission-create
+  namespace: monitoring
+$patch: delete

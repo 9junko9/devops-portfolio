@@ -9,10 +9,8 @@ spec:
     repoURL: https://github.com/9junko9/devops-portfolio.git
     targetRevision: main
     path: 00-devops-platform/kubernetes/apps/monitoring
-    helm:
-      parameters:
-        - name: loki.loki.useTestSchema
-          value: "true"
+    plugin:
+      name: kustomize
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
