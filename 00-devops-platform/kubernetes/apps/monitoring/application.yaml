@@ -9,6 +9,12 @@ spec:
     repoURL: https://github.com/9junko9/devops-portfolio.git
     targetRevision: main
     path: 00-devops-platform/kubernetes/apps/monitoring
+    helm:
+      valueFiles:
+        - values-prometheus.yaml
+        - values-grafana.yaml
+        - values-loki.yaml
+        - values-promtail.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
