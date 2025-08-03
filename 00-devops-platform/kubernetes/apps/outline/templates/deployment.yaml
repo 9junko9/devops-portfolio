@@ -32,7 +32,7 @@ spec:
               command:
                 - sh
                 - -c
-                - "curl -fsS http://localhost:3000/ || exit 1"
+                - "curl -I http://localhost:3000/ || exit 1"
             periodSeconds: 10
             failureThreshold: 30
           readinessProbe:
@@ -40,8 +40,8 @@ spec:
               command:
                 - sh
                 - -c
-                - "curl -fsS http://localhost:3000/ || exit 1"
-            initialDelaySeconds: 40
+                - "curl -I http://localhost:3000/ || exit 1"
+            initialDelaySeconds: 60
             periodSeconds: 10
           env:
             {{- with .Values.env }}
