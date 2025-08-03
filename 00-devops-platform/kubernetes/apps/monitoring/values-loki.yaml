@@ -1,14 +1,14 @@
 loki:
   persistence:
-    enabled: false  
-  config: |  
+    enabled: false
+  config: |
     table_manager:
       retention_deletes_enabled: true
-      retention_period: 168h 
+      retention_period: 168h
     ingester:
       wal:
         enabled: false
-    schemaConfig:
+    schema_config:
       configs:
         - from: 2020-10-15
           store: boltdb-shipper
@@ -17,7 +17,7 @@ loki:
           index:
             prefix: index_
             period: 24h
-    storageConfig:
+    storage_config:
       boltdb_shipper:
         active_index_directory: /data/loki/index
         cache_location: /data/loki/cache
