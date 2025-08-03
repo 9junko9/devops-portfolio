@@ -21,24 +21,24 @@ spec:
           ports:
             - containerPort: 3000
           env:
-            - name: DATABASE_TYPE
+            - name: FORGEJO__database__DB_TYPE
               value: "postgres"
-            - name: DATABASE_HOST
+            - name: FORGEJO__database__HOST
               value: "forgejo-postgres"
-            - name: DATABASE_NAME
+            - name: FORGEJO__database__NAME
               value: "forgejo"
-            - name: DATABASE_USER
+            - name: FORGEJO__database__USER
               valueFrom:
                 secretKeyRef:
                   name: forgejo-postgres-credentials
                   key: POSTGRES_USER
-            - name: DATABASE_PASSWD
+            - name: FORGEJO__database__PASSWD
               valueFrom:
                 secretKeyRef:
                   name: forgejo-postgres-credentials
                   key: POSTGRES_PASSWORD
-            - name: ROOT_URL
-              value: "http://localhost:3001"  # adapte si tu changes de port / domaine
+            - name: FORGEJO__server__ROOT_URL
+              value: "http://localhost:3001/"
           readinessProbe:
             httpGet:
               path: "/"
