@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: forgejo
+  namespace: forgejo
+  labels:
+    app: forgejo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: forgejo
+  template:
+    metadata:
+      labels:
+        app: forgejo
+    spec:
+      containers:
+        - name: forgejo
+          image: forgejo/forgejo:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DATABASE_TYPE
+              value: "postgres"
+            - name: DATABASE_HOST
+              value: "forgejo-postgres"
+            - name: DATABASE_NAME
+              value: "forgejo"
+            - name: DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: forgejo-postgres-credentials
+                  key: POSTGRES_USER
+            - name: DATABASE_PASSWD
+              valueFrom:
+                secretKeyRef:
+                  name: forgejo-postgres-credentials
+                  key: POSTGRES_PASSWORD
+            - name: ROOT_URL
+              value: "http://localhost:3001"  # adapte si tu changes de port / domaine
+          readinessProbe:
+            httpGet:
+              path: "/"
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: "/"
+              port: 3000
+            initialDelaySeconds: 60
+            periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: forgejo
+  namespace: forgejo
+spec:
+  ports:
+    - port: 3000
+      targetPort: 3000
+      name: http
+  selector:
+    app: forgejo
+  type: ClusterIP
