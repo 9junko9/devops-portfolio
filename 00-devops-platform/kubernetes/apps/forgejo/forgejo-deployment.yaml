@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: forgejo
-          image: forgejo/forgejo:latest
+          image: codeberg.org/forgejo/forgejo:1.20.1-0
           ports:
             - containerPort: 3000
           env:
