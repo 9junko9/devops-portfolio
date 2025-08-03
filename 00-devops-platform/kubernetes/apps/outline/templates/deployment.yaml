@@ -27,18 +27,21 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.port }}
-          # startup + readiness probes
           startupProbe:
-            httpGet:
-              path: /
-              port: {{ .Values.service.port }}
+            exec:
+              command:
+                - sh
+                - -c
+                - "curl -fsS http://localhost:3000/ || exit 1"
             periodSeconds: 10
             failureThreshold: 30
           readinessProbe:
-            httpGet:
-              path: /
-              port: {{ .Values.service.port }}
-            initialDelaySeconds: 30
+            exec:
+              command:
+                - sh
+                - -c
+                - "curl -fsS http://localhost:3000/ || exit 1"
+            initialDelaySeconds: 40
             periodSeconds: 10
           env:
             {{- with .Values.env }}
