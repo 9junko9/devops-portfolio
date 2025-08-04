@@ -1,56 +1,105 @@
-name: CI
+name: CI & CD
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
-  lint:
+  terraform:
+    name: Terraform fmt & validate
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: terraform
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - uses: actions/checkout@v3
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
         with:
-          python-version: '3.x'
+          terraform_version: 1.5.7
+      - name: Terraform fmt (check)
+        run: terraform fmt -check -recursive
+      - name: Terraform init (no backend)
+        run: terraform init -backend=false
+      - name: Terraform validate
+        run: terraform validate
 
-      - name: Install yamllint
+  ansible-lint:
+    name: Ansible Lint
+    runs-on: ubuntu-latest
+    needs: terraform
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install ansible-lint
         run: |
-          pip install yamllint
+          python3 -m pip install --upgrade pip
+          pip install ansible ansible-lint
+      - name: Lint playbooks
+        run: ansible-lint ansible/playbook.yml
 
-      - name: Run yamllint on all YAML files
-        run: |
-          yamllint .
-
-      - name: Set up Helm
+  helm-lint:
+    name: Helm Lint
+    runs-on: ubuntu-latest
+    needs: ansible-lint
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Helm
         uses: azure/setup-helm@v3
         with:
-          version: v3.12.0
-
-      - name: Lint Forgejo chart
-        run: |
-          helm lint kubernetes/apps/forgejo
-
+          version: v3.12.3
       - name: Lint Outline chart
-        run: |
-          helm lint kubernetes/apps/outline
+        run: helm lint kubernetes/apps/outline
+      - name: Lint monitoring charts
+        run: helm lint kubernetes/apps/monitoring
 
-      - name: Lint Monitoring chart
-        run: |
-          helm lint kubernetes/apps/monitoring
+  kubeval:
+    name: K8s Manifest Validation
+    runs-on: ubuntu-latest
+    needs: helm-lint
+    steps:
+      - uses: actions/checkout@v3
+      - name: Kubeval check
+        uses: instrumenta/kubeval-action@v2
+        with:
+          files: |
+            kubernetes/**/*.yaml
 
-      # Optionnel : vérifier les manifests Kubernetes sans déployer
-      - name: Install kubeconform
-        run: |
-          curl -sSL -o kubeconform https://github.com/yannh/kubeconform/releases/latest/download/kubeconform-linux-amd64
-          chmod +x kubeconform && sudo mv kubeconform /usr/local/bin/
+  deploy-argocd:
+    name: Sync ArgoCD Apps
+    runs-on: ubuntu-latest
+    needs: kubeval
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v3
 
-      - name: Validate Kubernetes manifests
+      
+      - name: Install ArgoCD CLI
         run: |
-          find kubernetes -type f -name '*.yml' -not -path '*/sops-gpg-config.yml' -exec kubeconform -summary {} +
+          curl -sSL -o /usr/local/bin/argocd \
+            https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+          chmod +x /usr/local/bin/argocd
+
+     
+      - name: Login to ArgoCD
+        run: |
+          argocd login ${{ secrets.ARGOCD_SERVER }} \
+            --username ${{ secrets.ARGOCD_USER }} \
+            --password ${{ secrets.ARGOCD_PASS }} \
+            --insecure
+
+     
+      - name: ArgoCD app sync
+        run: |
+          argocd app sync app-of-apps \
+            --prune \
+            --retry
+
+    
+      - name: ArgoCD wait
+        run: |
+          argocd app wait app-of-apps \
+            --health \
+            --timeout 300
+
