@@ -1,20 +1,27 @@
 kube-prometheus-stack:
-  admissionWebhooks:
-    enabled: false
+  prometheusOperator:
+    admissionWebhooks:
+      enabled: false
+
   alertmanager:
     enabled: false
+
   prometheus:
     prometheusSpec:
       serviceMonitorSelectorNilUsesHelmValues: false
       evaluationInterval: "30s"
       serviceMonitorSelector: {}
       retention: 10d
+
   grafana:
     enabled: true
+
   kubeStateMetrics:
     enabled: true
+
   nodeExporter:
     enabled: true
+
   prometheusRule:
     enabled: true
 
