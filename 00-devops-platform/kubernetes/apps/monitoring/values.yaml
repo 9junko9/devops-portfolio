@@ -34,10 +34,9 @@ grafana:
     enabled: false
 
 loki:
-  loki:
-    useTestSchema: true
-    persistence:
-      enabled: false
+  enabled: false
+
+
 
 promtail:
   config:
