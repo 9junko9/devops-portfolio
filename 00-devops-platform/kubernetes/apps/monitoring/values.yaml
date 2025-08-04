@@ -35,9 +35,28 @@ grafana:
 
 loki:
   enabled: true
-  useTestSchema: true        # <<< contourne l’erreur de schema_config
+  schema_config:
+    configs:
+      - from: 2020-10-15
+        store: boltdb-shipper
+        object_store: filesystem
+        schema: v11
+        index:
+          prefix: index_
+          period: 24h
+
+  storage_config:
+    boltdb_shipper:
+      active_index_directory: /data/loki/boltdb-shipper-active
+      shared_store: filesystem
+    filesystem:
+      directory: /data/loki/chunks
+
   persistence:
-    enabled: false          # pas de persistence pour test
+    enabled: true
+    accessModes: ["ReadWriteOnce"]
+    size: 10Gi
+    
 
 promtail:
   config:
