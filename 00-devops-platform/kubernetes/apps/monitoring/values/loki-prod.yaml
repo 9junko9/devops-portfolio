@@ -1,0 +1,21 @@
+loki:
+  enabled: true
+  schemaConfig:
+    configs:
+      - from: 2025-01-01
+        store: boltdb-shipper
+        object_store: filesystem
+        schema: v11
+        index:
+          prefix: index_
+          period: 24h
+  storageConfig:
+    boltdb_shipper:
+      active_index_directory: /data/loki/boltdb-shipper-active
+      shared_store: filesystem
+    filesystem:
+      directory: /data/loki/chunks
+  persistence:
+    enabled: true
+    accessModes: ["ReadWriteOnce"]
+    size: 10Gi

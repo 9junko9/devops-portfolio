@@ -1,0 +1,30 @@
+kube-prometheus-stack:
+  prometheusOperator:
+    admissionWebhooks:
+      enabled: false
+  alertmanager:
+    enabled: false
+  prometheus:
+    prometheusSpec:
+      serviceMonitorSelectorNilUsesHelmValues: false
+      evaluationInterval: "30s"
+      serviceMonitorSelector: {}
+      retention: 10d
+  grafana:
+    enabled: true
+  kubeStateMetrics:
+    enabled: true
+  nodeExporter:
+    enabled: true
+  prometheusRule:
+    enabled: true
+
+grafana:
+  admin:
+    password: admin
+  service:
+    type: ClusterIP
+  ingress:
+    enabled: false
+  testFramework:
+    enabled: false  

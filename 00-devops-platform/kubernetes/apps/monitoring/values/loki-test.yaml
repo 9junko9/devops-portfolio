@@ -1,0 +1,5 @@
+loki:
+  enabled: true
+  useTestSchema: true
+  persistence:
+    enabled: false
