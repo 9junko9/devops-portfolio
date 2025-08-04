@@ -21,18 +21,3 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - SkipHooks=true
-  ignoreDifferences:
-    - group: rbac.authorization.k8s.io
-      kind: Role
-      name: monitoring-kube-prometheus-admission
-      namespace: monitoring
-    - group: rbac.authorization.k8s.io
-      kind: RoleBinding
-      name: monitoring-kube-prometheus-admission
-      namespace: monitoring
-    - group: rbac.authorization.k8s.io
-      kind: ClusterRole
-      name: monitoring-kube-prometheus-admission
-    - group: rbac.authorization.k8s.io
-      kind: ClusterRoleBinding
-      name: monitoring-kube-prometheus-admission
