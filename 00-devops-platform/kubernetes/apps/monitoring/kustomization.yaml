@@ -1,5 +1,0 @@
-resources:
-  - .
-
-patchesStrategicMerge:
-  - disable-admission-job.yaml
