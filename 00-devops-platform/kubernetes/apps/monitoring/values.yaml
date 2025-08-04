@@ -34,9 +34,10 @@ grafana:
     enabled: false
 
 loki:
-  enabled: false
-
-
+  enabled: true
+  useTestSchema: true        # <<< contourne l’erreur de schema_config
+  persistence:
+    enabled: false          # pas de persistence pour test
 
 promtail:
   config:
